@@ -4,14 +4,13 @@ describe("Robot", () => {
   describe("setStartingPosition", () => {
     const robot = new Robot();
 
-    it("can set starting position and add it to list of cleaned positions", () => {
-      const x = 1;
-      const y = 1;
-      robot.setStartingPosition(x, y);
-      expect(robot.position.x).toBe(x);
-      expect(robot.position.y).toBe(y);
-      expect(robot.cleanedPositions.length).toEqual(1);
-      expect(robot.cleanedPositions[0]).toEqual({ x, y });
+    it("can set starting position", () => {
+      robot.setStartingPosition(1, 1);
+
+      const { x, y } = robot.getCurrentPosition();
+
+      expect(x).toBe(1);
+      expect(y).toBe(1);
     });
 
     describe("moveRobot", () => {
@@ -19,48 +18,62 @@ describe("Robot", () => {
         const robot = new Robot();
         const heading = "n";
         const steps = 5;
+
         robot.moveRobot(heading, steps);
 
-        expect(robot.position.x).toBe(0);
-        expect(robot.position.y).toBe(0 + steps);
+        const { x, y } = robot.getCurrentPosition();
+
+        expect(x).toBe(0);
+        expect(y).toBe(0 + steps);
       });
 
       it("can move a number of steps east", () => {
         const robot = new Robot();
         const heading = "e";
         const steps = 5;
+
         robot.moveRobot(heading, steps);
 
-        expect(robot.position.x).toBe(0 + steps);
-        expect(robot.position.y).toBe(0);
+        const { x, y } = robot.getCurrentPosition();
+
+        expect(x).toBe(0 + steps);
+        expect(y).toBe(0);
       });
 
       it("can move a number of steps south", () => {
         const robot = new Robot();
         const heading = "s";
         const steps = 5;
+
         robot.moveRobot(heading, steps);
 
-        expect(robot.position.x).toBe(0);
-        expect(robot.position.y).toBe(0 - steps);
+        const { x, y } = robot.getCurrentPosition();
+
+        expect(x).toBe(0);
+        expect(y).toBe(0 - steps);
       });
 
       it("can move a number of steps west", () => {
         const robot = new Robot();
         const heading = "w";
         const steps = 5;
+
         robot.moveRobot(heading, steps);
 
-        expect(robot.position.x).toBe(0 - steps);
-        expect(robot.position.y).toBe(0);
+        const { x, y } = robot.getCurrentPosition();
+
+        expect(x).toBe(0 - steps);
+        expect(y).toBe(0);
       });
 
-      it("adds all positions passed to cleanedPositions", () => {
+      it("adds all positions passed to positionHistory", () => {
         const robot = new Robot();
         const heading = "n";
         const steps = 5;
+
         robot.moveRobot(heading, steps);
-        const cleanedPositions = [
+
+        const positionHistory = [
           { x: 0, y: 0 },
           { x: 0, y: 1 },
           { x: 0, y: 2 },
@@ -68,8 +81,26 @@ describe("Robot", () => {
           { x: 0, y: 4 },
           { x: 0, y: 5 }
         ];
-        expect(robot.cleanedPositions).toEqual(cleanedPositions);
+
+        expect(robot.getPositionHistory()).toEqual(positionHistory);
       });
+    });
+  });
+
+  describe("getNumberOfUniquePositionsCleaned", () => {
+    it.only("should return number of unique positions cleaned", () => {
+      const robot = new Robot();
+
+      robot.moveRobot("n", 2); // 3
+      robot.moveRobot("s", 2); // 3
+      robot.moveRobot("e", 3); // 6
+      robot.moveRobot("w", 3); // 6
+
+      const nrOfUniquePositionsCleaned = 6;
+
+      expect(robot.getNumberOfUniquePositionsCleaned()).toEqual(
+        nrOfUniquePositionsCleaned
+      );
     });
   });
 });
