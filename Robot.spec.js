@@ -16,7 +16,7 @@ describe("Robot", () => {
     describe("moveRobot", () => {
       it("can move a number of steps north", () => {
         const robot = new Robot();
-        const heading = "n";
+        const heading = "N";
         const steps = 5;
 
         robot.moveRobot(heading, steps);
@@ -29,7 +29,7 @@ describe("Robot", () => {
 
       it("can move a number of steps east", () => {
         const robot = new Robot();
-        const heading = "e";
+        const heading = "E";
         const steps = 5;
 
         robot.moveRobot(heading, steps);
@@ -42,7 +42,7 @@ describe("Robot", () => {
 
       it("can move a number of steps south", () => {
         const robot = new Robot();
-        const heading = "s";
+        const heading = "S";
         const steps = 5;
 
         robot.moveRobot(heading, steps);
@@ -55,7 +55,7 @@ describe("Robot", () => {
 
       it("can move a number of steps west", () => {
         const robot = new Robot();
-        const heading = "w";
+        const heading = "W";
         const steps = 5;
 
         robot.moveRobot(heading, steps);
@@ -68,7 +68,7 @@ describe("Robot", () => {
 
       it("adds all positions passed to positionHistory", () => {
         const robot = new Robot();
-        const heading = "n";
+        const heading = "N";
         const steps = 5;
 
         robot.moveRobot(heading, steps);
@@ -91,10 +91,10 @@ describe("Robot", () => {
     it.only("should return number of unique positions cleaned", () => {
       const robot = new Robot();
 
-      robot.moveRobot("n", 2); // 3
-      robot.moveRobot("s", 2); // 3
-      robot.moveRobot("e", 3); // 6
-      robot.moveRobot("w", 3); // 6
+      robot.moveRobot("N", 2); // 3
+      robot.moveRobot("S", 2); // 3
+      robot.moveRobot("E", 3); // 6
+      robot.moveRobot("W", 3); // 6
 
       const nrOfUniquePositionsCleaned = 6;
 

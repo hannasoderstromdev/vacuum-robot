@@ -4,7 +4,7 @@ class Robot {
       x: 0,
       y: 0
     };
-    this.heading = "n";
+    this.heading = "N";
     this.positionHistory = [{ x: 0, y: 0 }];
     this.numberOfUniqueSpotsCleaned = 1;
   }
@@ -24,19 +24,19 @@ class Robot {
 
   moveRobot(heading, steps) {
     for (let index = 0; index < steps; index++) {
-      if (heading === "n") {
+      if (heading === "N") {
         this.position.y++;
       }
 
-      if (heading === "e") {
+      if (heading === "E") {
         this.position.x++;
       }
 
-      if (heading === "s") {
+      if (heading === "S") {
         this.position.y--;
       }
 
-      if (heading === "w") {
+      if (heading === "W") {
         this.position.x--;
       }
 
