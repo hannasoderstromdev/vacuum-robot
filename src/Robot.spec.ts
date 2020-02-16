@@ -1,4 +1,4 @@
-const Robot = require("./Robot");
+import Robot from './Robot'
 
 describe("Robot", () => {
   describe("setStartingPosition", () => {

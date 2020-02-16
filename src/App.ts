@@ -1,7 +1,10 @@
-const Robot = require("./Robot");
-const inputOutputHandler = require("./inputOutputHandler");
+import inputOutputHandler from "./inputOutputHandler";
+import Robot from "./Robot";
 
 class App {
+  private robot: Robot;
+  public numberOfCommands: number;
+
   constructor() {
     this.robot = new Robot();
     this.numberOfCommands = 0;
@@ -13,7 +16,7 @@ class App {
     this.parseForMovement = this.parseForMovement.bind(this);
   }
 
-  parseForExpectedNumberOfCommands(text) {
+  parseForExpectedNumberOfCommands(text: string): void {
     if (text === "q") {
       this.quit();
     }
@@ -21,7 +24,7 @@ class App {
     this.numberOfCommands = parseInt(text);
   }
 
-  parseForStartingPosition(text) {
+  parseForStartingPosition(text: string): void {
     if (text === "q") {
       this.quit();
     }
@@ -34,7 +37,7 @@ class App {
     this.robot.setStartingPosition(x, y);
   }
 
-  parseForMovement(text) {
+  parseForMovement(text: string): void {
     if (text === "q") {
       this.quit();
     }
@@ -47,39 +50,42 @@ class App {
     this.robot.moveRobot(heading, steps);
   }
 
-  quit() {
+  quit(): void {
     const count = this.robot.getNumberOfUniquePositionsCleaned();
 
     console.log(`You cleaned a total of ${count} spots. Goodbye!`);
     process.exit();
   }
 
-  async start() {
-    await inputOutputHandler(
-      "Enter total number of movements to expect:\n",
-      this.parseForExpectedNumberOfCommands
-    );
-
-    await inputOutputHandler(
-      "Enter coordinates for robot starting position:\n",
-      this.parseForStartingPosition
-    );
-
-    let commandCount = 0;
-
-    while (commandCount < this.numberOfCommands) {
-      const count = this.robot.getNumberOfUniquePositionsCleaned();
-
+  async start(): Promise<void> {
+    try {
       await inputOutputHandler(
-        `=> Cleaned ${count}\nEnter heading (N/E/S/W) and number of steps:\n`,
-        this.parseForMovement
+        "Enter total number of movements to expect:\n",
+        this.parseForExpectedNumberOfCommands
       );
 
-      commandCount++;
-    }
+      await inputOutputHandler(
+        "Enter coordinates for robot starting position:\n",
+        this.parseForStartingPosition
+      );
 
+      let commandCount = 0;
+
+      while (commandCount < this.numberOfCommands) {
+        const count = this.robot.getNumberOfUniquePositionsCleaned();
+
+        await inputOutputHandler(
+          `=> Cleaned ${count}\nEnter heading (N/E/S/W) and number of steps:\n`,
+          this.parseForMovement
+        );
+
+        commandCount++;
+      }
+    } catch (error) {
+      throw Error(error);
+    }
     this.quit();
   }
 }
 
-module.exports = App;
+export default App

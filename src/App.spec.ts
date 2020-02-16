@@ -1,4 +1,4 @@
-const App = require("./App");
+import App from "./App";
 
 // Input
 // First line - "n" number of expected inputs (int, length 0 <= 10 000)
