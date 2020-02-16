@@ -22,6 +22,13 @@ jest.mock("./Robot", () => {
 describe("App", () => {
   const app = new App();
 
+  describe("parseForExpectedNumberOfCommands", () => {
+    it("sets number of commands", () => {
+      app.parseForExpectedNumberOfCommands("2");
+      expect(app.numberOfCommands).toEqual(2);
+    });
+  });
+
   describe("parseForStartingPosition", () => {
     it("sets robot coordinates", () => {
       app.parseForStartingPosition("0, 0");
