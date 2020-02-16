@@ -4,7 +4,6 @@ class Robot {
       x: 0,
       y: 0
     };
-    this.heading = "N";
     this.positionHistory = [{ x: 0, y: 0 }];
     this.numberOfUniqueSpotsCleaned = 1;
   }
